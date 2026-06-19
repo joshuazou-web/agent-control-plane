@@ -1,0 +1,17 @@
+{
+  "kernel": [
+    "Agent",
+    "Task",
+    "Authority",
+    "Trace",
+    "Gate"
+  ],
+  "loop": [
+    "propose",
+    "check",
+    "execute",
+    "record",
+    "escalate"
+  ],
+  "default_decision": "deny"
+}
