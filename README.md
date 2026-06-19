@@ -29,6 +29,14 @@ python -m agent_control_plane trace examples/demo --task demo
 
 `git push` is gated by the default policy, so it is recorded but not executed.
 
+Approve and resume a gated command:
+
+```powershell
+python -m agent_control_plane approve examples/demo --task demo --event-id <gate_event_id> --execute
+```
+
+Approval writes `approvals.jsonl`, then records the resumed execution in `trace.jsonl`.
+
 Tests use only the Python standard library:
 
 ```powershell
@@ -44,6 +52,7 @@ examples/demo/
 ├── governance.json
 └── tasks/
     └── demo/
+        ├── approvals.jsonl
         ├── gates.jsonl
         └── trace.jsonl
 ```

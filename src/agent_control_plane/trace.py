@@ -44,6 +44,26 @@ def read_trace(root: Path, task: str) -> list[dict[str, Any]]:
     return [json.loads(line) for line in path.read_text(encoding="utf-8").splitlines() if line.strip()]
 
 
+def find_gate(root: Path, task: str, event_id: str) -> dict[str, Any] | None:
+    for entry in read_trace(root, task):
+        if entry.get("event_id") == event_id and entry.get("decision") == "gate":
+            return entry
+    return None
+
+
+def append_approval(root: Path, task: str, gate: dict[str, Any], approver: str) -> dict[str, Any]:
+    entry = {
+        "approval_id": _approval_id(gate, approver),
+        "time": datetime.now(timezone.utc).isoformat(),
+        "task": task,
+        "gate_event_id": gate["event_id"],
+        "approver": approver,
+        "decision": "approved",
+    }
+    _append_jsonl(task_dir(root, task) / "approvals.jsonl", entry)
+    return entry
+
+
 def _append_jsonl(path: Path, entry: dict[str, Any]) -> None:
     with path.open("a", encoding="utf-8") as f:
         f.write(json.dumps(entry, ensure_ascii=False, sort_keys=True) + "\n")
@@ -64,3 +84,14 @@ def _event_id(proposal: Proposal, decision: PolicyDecision) -> str:
     )
     return hashlib.sha256(payload.encode("utf-8")).hexdigest()[:16]
 
+
+def _approval_id(gate: dict[str, Any], approver: str) -> str:
+    payload = json.dumps(
+        {
+            "gate_event_id": gate["event_id"],
+            "approver": approver,
+            "time": datetime.now(timezone.utc).isoformat(),
+        },
+        sort_keys=True,
+    )
+    return hashlib.sha256(payload.encode("utf-8")).hexdigest()[:16]
