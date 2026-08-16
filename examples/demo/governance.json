@@ -13,5 +13,9 @@
     "record",
     "escalate"
   ],
-  "default_decision": "deny"
+  "default_decision": "deny",
+  "approval_ttl_minutes": 60,
+  "audit": {
+    "hash_chain": "sha256"
+  }
 }

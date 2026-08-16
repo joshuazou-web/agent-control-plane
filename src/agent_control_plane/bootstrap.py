@@ -34,6 +34,8 @@ DEFAULT_GOVERNANCE = {
     "kernel": ["Agent", "Task", "Authority", "Trace", "Gate"],
     "loop": ["propose", "check", "execute", "record", "escalate"],
     "default_decision": "deny",
+    "approval_ttl_minutes": 60,
+    "audit": {"hash_chain": "sha256"},
 }
 
 
@@ -49,4 +51,3 @@ def _write_json(path: Path, payload: dict) -> None:
     if path.exists():
         return
     path.write_text(json.dumps(payload, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
-

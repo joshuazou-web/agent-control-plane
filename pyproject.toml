@@ -4,11 +4,23 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "agent-control-plane"
-version = "0.1.0"
-description = "Minimal governance kernel for personal multi-agent workflows."
+version = "0.2.0"
+description = "Policy enforcement, approval gates, budgets, and tamper-evident audit trails for AI agents."
 readme = "README.md"
 requires-python = ">=3.11"
 dependencies = []
+keywords = ["ai-agents", "governance", "policy", "audit", "approval-workflow"]
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.11",
+  "Topic :: Software Development :: Libraries :: Application Frameworks",
+]
+
+[project.urls]
+Homepage = "https://github.com/joshuazou-web/agent-control-plane"
+Repository = "https://github.com/joshuazou-web/agent-control-plane"
+Issues = "https://github.com/joshuazou-web/agent-control-plane/issues"
 
 [project.scripts]
 agentcp = "agent_control_plane.cli:main"
@@ -16,4 +28,3 @@ agentcp = "agent_control_plane.cli:main"
 [tool.pytest.ini_options]
 pythonpath = ["src"]
 testpaths = ["tests"]
-

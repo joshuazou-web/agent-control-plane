@@ -27,3 +27,10 @@ class PolicyDecision:
     reason: str
     rule: dict[str, Any] | None = None
 
+
+@dataclass(frozen=True)
+class Usage:
+    """Task-scoped usage observed before evaluating the next proposal."""
+
+    tool_calls: int = 0
+    elapsed_minutes: float = 0.0
